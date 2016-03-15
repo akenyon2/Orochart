@@ -10,6 +10,8 @@
     <!-- Bootstrap -->
     <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/default.css" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,18 +22,19 @@
   </head>
   <body>
     <?php 
-    include_once("includes/header-nav.php");
+      require_once('db/database.class.php');
+      include_once("includes/header-nav.php");
+      if(!empty($_POST['submit']))
+        if($_POST['submit'] == 'nav')
+          require_once('db/login-validation.php');
     ?>
-
     <div class="container">
-    <p>Users should now be able to create accounts. For working in the stack locally in phpMyAdmin, create a new table called user
-       and create email varchar primary key, password varchar, firstName varchar, lastName varchar, and organization varchar<strong> is null</strong>.</p>
-    <p>The login page needs some work, but that is for phase 3 anyway.</p>
-
+      <div class="jumbotron">
+        <h3>Welcome to Orochart!</h3><br/>
+        <p><em><b>What is Orochart?</b></em></p>
+        <p>Orochart is an application that attempts to revolutionize your scheduling experience by providing sleek and quick customizability.</p>
+      </div>
   </div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../dist/js/bootstrap.min.js"></script>
   </body>

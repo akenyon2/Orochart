@@ -1,17 +1,16 @@
 <?php
-try{
-    $conn = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME , USERNAME, PASSWORD);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = Database::connect();
     
     if($_SERVER['REQUEST_METHOD'] === 'POST'){ //When submit is clicked, proceed
         $required = array("Email", "Password"); //Proceed if email and password are filled
-        $error = true;
-        foreach($required as $element){
-            if(empty($_POST[$element]))
-                $error = false;
-        }
-        if($error){
-            $stmnt = $conn->prepare("SELECT *
+
+        try{
+            foreach($required as $element){
+                if(empty($_POST[$element]))
+                    throw new Exception("Required fields must be filled.");
+            }
+            
+            $stmnt = $pdo->prepare("SELECT *
                 FROM Users
                 WHERE Email = :email 
                 AND Password = :password");
@@ -24,16 +23,12 @@ try{
                 echo "Incorrect email or password.";
             }
             else
-            {
                 echo "Welcome " . $result['FirstName'] . " " . $result['LastName'] . "!";
-            }
-        }
-        else
-        {
-            echo "Error. Required fields must be completed.";
+
+        }catch(Exception $e){
+            echo $e->getMessage();
         }
     }
-}catch(PDOEXception $e){
-    echo "Error, could not connect to the database. " . $e->getMessage();
-}
+
+    Database::disconnect();
 ?>

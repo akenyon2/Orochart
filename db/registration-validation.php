@@ -1,27 +1,55 @@
 <?php
-try{
-    $conn = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME , USERNAME, PASSWORD);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo = Database::connect();
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        $required = array("Email", "Password", "FirstName", "LastName");
-        $error = true;
-        foreach($required as $element){
-            if(empty($_POST[$element]))
-                $error = false;
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if(preg_match("/^[a-zA-Z]*$/", $_POST['FirstName']))
+        $err_firstname = false;
+    else
+        $err_firstname = true;
+
+    if(preg_match("/^[a-zA-Z]*$/", $_POST['LastName']))
+        $err_lastname = false;
+    else
+        $err_lastname = true;
+
+    if(preg_match("/^(.+)@([^\.].*)\.([a-z]{2,})$/", $_POST['Email']))
+        $err_email = false;
+    else
+        $err_email = true;
+
+    if(preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $_POST['Password']))
+        $err_password = false;
+    else
+        $err_password = true;
+
+    $errors = array("FirstName" => $err_firstname,
+        "LastName" => $err_lastname, 
+        "Email" => $err_email, 
+        "Password" => $err_password);
+    $error_container = array();
+
+    try{
+        foreach($errors as $key => $error){
+            if($error == true)
+                $error_container[$key] = $key;
         }
+        if(!empty($error_container))
+            throw new Exception("Regex for $key is invalid.");
 
-        if($error){//Proceed if all fields are filled
+        
+
             //Test if the email already exists
-            $stmnt = $conn->prepare("SELECT Email
-                FROM users
-                WHERE Email = :email");
-            $stmnt->bindParam(':email', $_POST['Email']);
-            $stmnt->execute();
-            $result = $stmnt->fetch();
-            if(!(is_array($result))){
+        $stmnt = $pdo->prepare("SELECT Email
+            FROM users
+            WHERE Email = :email");
+        $stmnt->bindParam(':email', $_POST['Email']);
+        $stmnt->execute();
+        $result = $stmnt->fetch();
 
-                $stmnt = $conn->prepare("INSERT INTO users (Email, Password, FirstName, LastName)
+        try{
+            if(!(is_array($result))){
+                $pdo->beginTransaction();
+                $stmnt = $pdo->prepare("INSERT INTO users (Email, Password, FirstName, LastName)
                     VALUES (:Email, :Password, :FirstName, :LastName)
                     ");
                 $stmnt->bindParam(':Email', $_POST["Email"]);
@@ -30,19 +58,24 @@ try{
                 $stmnt->bindParam(':LastName', $_POST["LastName"]);
 
 
-                if($stmnt->execute())
-                    echo "Registration complete!";
+                if($stmnt->execute()){
+                    $reg_success = "Registration complete!";
+                    $pdo->commit();
+                }
                 else
-                    echo "Registration failed.";
+                    $reg_fail = "Registration failed.";
             }
             else
-                echo "That email already exists.";
+                throw new Exception("That email already exists.");
+
+        }catch(Exception $e){
+            $email_error = $e->getMessage();
         }
-        else
-            echo "Error. Required fields must be completed.";
+    }catch(Exception $e){
+        $reg_err = $e->getMessage();
     }
-        //header('LOCATION: index.php?mail=' . $email);   
-}catch(PDOEXception $e){
-    echo "Error, could not connect to the database. " . $e->getMessage();
-} 
+}
+        //header('LOCATION: index.php?mail=' . $email); 
+
+Database::disconnect(); 
 ?>
