@@ -16,7 +16,6 @@ if(!isset($_SESSION)){session_start();}
     <link href="css/default.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,26 +31,23 @@ if(!isset($_SESSION)){session_start();}
       if(!empty($_POST['submit'])) //If user logs in through index, include validation file
         if($_POST['submit'] == 'nav')
           require_once('db/login-validation.php');
-
+        
       include_once("includes/header-nav.php"); //top navbar
+      require_once('profile-update.php');
     ?>
+
     <div class="container">
-      <div class="row">
-        <div class="jumbotron">
-        <?php
-          if(isset($_GET['registered'])){
-            if($_GET['registered'] == 'true')
-              echo "<h3 id=\"h3-registration\" class=\"rounded-registration\">Registration successful!</h3><br><br>";
-          }
-        ?>
-        <h3>Welcome to Orochart!</h3>
-        <hr>
-        <p><em><b>What is Orochart?</b></em></p>
-        <p>Orochart is an application that attempts to revolutionize your scheduling experience by providing sleek and quick customizability.</p>
-        </div>
-      </div>
-  </div>
+    	<div class="row">
+    		<div class="col-md-6 col-md-offset-3">
+    			
+    		</div>
+    	</div>
+    </div>
+
+
+
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../dist/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>
