@@ -1,4 +1,4 @@
-<nav id="header" class="nav navbar-inverse">
+<nav id="header" class="nav navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="index.php">Orochart</a>
