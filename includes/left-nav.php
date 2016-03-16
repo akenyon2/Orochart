@@ -1,5 +1,5 @@
-<ul class="sidebar-nav">
-            <li><a href="#">Another link</a></li>
-            <li><a href="#">Next link</a></li>
-            <li><a href="#">Last link</a></li>
+<ul id="left-nav" class="sidebar-nav">
+            <li><a href="#">Link #1</a></li>
+            <li><a href="#">Link #2</a></li>
+            <li><a href="#">Link #3</a></li>
         </ul>

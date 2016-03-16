@@ -3,7 +3,7 @@ html, body, .container, .container-fluid, .row, #wrapper, #page-content-wrapper,
 }
 
 body{
-	padding-top:50px;
+    padding-top:50px;
 }
 
 .row{
@@ -50,13 +50,13 @@ hr {
 	text-align: center;
 }
 
-#header{
-	border-bottom:solid black 2px;
+#header, #left-nav > li{
+    border-bottom: solid black 2px;
 }
 
 #header > div > div > a, #header > div > ul > li{
-	border-left:solid black 4px;
-	border-right:solid black 4px;
+    border-left:solid black 2px;
+    border-right:solid black 2px;
 }
 
 
@@ -89,7 +89,6 @@ hr {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    border-top: solid black 2px;
     background: #222;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
