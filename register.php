@@ -39,8 +39,7 @@ if(!isset($_SESSION)){session_start();}
         <div class="page-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-md-offset-3">
                 <h3>Register</h3><hr>
                 <span class="asterisk">* required field.</span>
                 <form role="form" name="signup" action="<?php echo $page; ?>" method="POST" accept-charset="utf-8">

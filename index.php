@@ -50,7 +50,7 @@ if(!isset($_SESSION)){session_start();}
         <?php
           if(isset($_GET['registered'])){
             if($_GET['registered'] == 'true')
-              echo "<h3 id=\"h3-registration\" class=\"rounded-registration\">Registration successful!</h3><br><br>";
+              echo "<h3 id=\"h3-registration\" class=\"rounded-registration-lg\">Registration successful!</h3><br><br>";
           }
         ?>
         <h3>Welcome to Orochart!</h3>

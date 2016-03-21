@@ -53,21 +53,18 @@
                 echo "</ul>";
 				
 				echo "<ul id=\"credentials\" class=\"nav navbar-nav navbar-right\">";
-	      		echo "<li><a href=\"register.php\"><span class=\"glyphicon glyphicon-user\"></span> Register</a></li>";
+	      		echo "<li><a href=\"register.php\"><span class=\"glyphicon glyphicon-edit\"></span> Register</a></li>";
 	      		echo "<li id=\"login\"><a href=\"#\"><span class=\"glyphicon glyphicon-log-in\"></span> Login</a></li>";
 	    		echo "</ul>";
             }
             else{
             	echo "<ul class=\"nav navbar-nav navbar-right\">";
-            	echo "<li><a href=\"#\">" . $_SESSION['FirstName'] . " " . $_SESSION['LastName'] . "</a></li>";
+            	echo "<li><a href=\"http://localhost/Orochart/profile.php\"><span class=\"glyphicon glyphicon-user\"></span>  " . $_SESSION['FirstName'] . " " . $_SESSION['LastName'] . "</a></li>";
             	echo "<li class=\"dropdown\">";
             	echo "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">";
             	echo "<span class=\"glyphicon glyphicon-cog\"></span> Settings";
             	echo "<span class=\"caret\"></span></a>";
             	echo "<ul class=\"dropdown-menu\">";
-            	echo "<li><a href=\"profile.php\">Profile</a></li>";
-            	echo "<li><a href=\"#\">Page 2</a></li>";
-            	echo "<li><a href=\"#\">Page 3</a></li>";
             	echo "<li id=\"logout\"><a href=\"logout.php\">Logout</a></li>";
             	echo "</ul>";
             	echo "</li>";
