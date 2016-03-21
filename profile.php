@@ -36,13 +36,29 @@ if(!isset($_SESSION)){session_start();}
       require_once('profile-update.php');
     ?>
 
-    <div class="container">
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <?php
+          require_once("includes/left-nav.php");
+        ?>
+      </div>
+      <div id="page-content-wrapper">
+        <div class="page-content">
+    <div class="container-fluid">
     	<div class="row">
-    		<div class="col-md-6 col-md-offset-3">
-    			
+    		<div class="col-md-6">
+    			<?php
+            if(isset($_SESSION['Email'])){
+              echo "<h3>" . $_SESSION['FirstName'] . " " . $_SESSION['LastName'] . "'s Profile</h3><hr>";
+            }
+
+          ?>
     		</div>
     	</div>
+    </div> <!-- container -->
     </div>
+    </div>
+  </div> <!-- wrapper -->
 
 
 

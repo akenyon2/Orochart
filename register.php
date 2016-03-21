@@ -28,7 +28,16 @@ if(!isset($_SESSION)){session_start();}
         include_once("includes/header-nav.php");
     ?>
 
-    <div class="container">
+
+<div id="wrapper">
+      <div id="sidebar-wrapper">
+        <?php
+          require_once("includes/left-nav.php");
+        ?>
+      </div>
+      <div id="page-content-wrapper">
+        <div class="page-content">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -122,6 +131,9 @@ if(!isset($_SESSION)){session_start();}
         <div class="col-md-3"></div>
     </div><!-- row -->
 </div><!-- container -->
+</div>
+</div>
+</div> <!-- wrapper -->
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../dist/js/bootstrap.min.js"></script>

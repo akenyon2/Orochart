@@ -35,7 +35,16 @@ if(!isset($_SESSION)){session_start();}
 
       include_once("includes/header-nav.php"); //top navbar
     ?>
-    <div class="container">
+
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <?php
+          require_once("includes/left-nav.php");
+        ?>
+      </div>
+      <div id="page-content-wrapper">
+        <div class="page-content">
+    <div class="container-fluid">
       <div class="row">
         <div class="jumbotron">
         <?php
@@ -50,7 +59,10 @@ if(!isset($_SESSION)){session_start();}
         <p>Orochart is an application that attempts to revolutionize your scheduling experience by providing sleek and quick customizability.</p>
         </div>
       </div>
-  </div>
+      </div> <!-- container -->
+      </div>
+      </div>
+  </div> <!-- wrapper -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../dist/js/bootstrap.min.js"></script>
   </body>
