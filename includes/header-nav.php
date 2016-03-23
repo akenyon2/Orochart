@@ -12,15 +12,15 @@
 	    		echo "<ul class=\"nav navbar-nav navbar-right\">";
 	    		echo "<form id=\"input\" class=\"navbar-form navbar-right\" role=\"search\" style=\"position:relative;";
 
-	    		if(!empty($invalid_email_password)){
+	    		if(!empty($_SESSION['invalid_email_password'])){
 	    			echo "display:block;\"";
 	    		}
 	    		else{
 	    			echo "display:none;\"";
 	    		}
-	    		echo "method=\"POST\">";
+	    		echo "method=\"POST\" action=\"db/login-validation.php\">";
                 echo "<div class=\"form-group ";
-                if(!empty($invalid_email_password)){
+                if(!empty($_SESSION['invalid_email_password'])){
 		
     				echo "has-error";
     	
@@ -34,7 +34,7 @@
                 echo "</div>";
                 echo "<div class=\"form-group tweaked-margin ";
 
-                if(!empty($invalid_email_password)){
+                if(!empty($_SESSION['invalid_email_password'])){
 		
     				echo "has-error";
     	
@@ -43,7 +43,7 @@
                 echo "\">";
                 echo "<input type=\"password\" class=\"form-control\" name=\"Password\" placeholder=\"Password\" required>";
                 echo "</div>";
-                echo "<button type=\"submit\" name=\"submit\" class=\"btn btn-default tweaked-margin\" value=\"nav\">Sign In</button>";
+                echo "<input type=\"submit\" name=\"submit\" class=\"btn btn-default tweaked-margin\" value=\"Sign In\"></input>";
                 echo "<div class=\"checkbox navbar-btn tweaked-margin\">";
                 echo "<label class=\"navbar-link\" for=\"remember\">";
                 echo "<input id=\"remember\" class=\"auto-submit\" type=\"checkbox\" name=\"remember\" value=\"true\"> Remember me</input>";
@@ -53,21 +53,18 @@
                 echo "</ul>";
 				
 				echo "<ul id=\"credentials\" class=\"nav navbar-nav navbar-right\">";
-	      		echo "<li><a href=\"register.php\"><span class=\"glyphicon glyphicon-user\"></span> Register</a></li>";
+	      		echo "<li><a href=\"register.php\"><span class=\"glyphicon glyphicon-edit\"></span> Register</a></li>";
 	      		echo "<li id=\"login\"><a href=\"#\"><span class=\"glyphicon glyphicon-log-in\"></span> Login</a></li>";
 	    		echo "</ul>";
             }
             else{
             	echo "<ul class=\"nav navbar-nav navbar-right\">";
-            	echo "<li><a href=\"#\">" . $_SESSION['FirstName'] . " " . $_SESSION['LastName'] . "</a></li>";
+            	echo "<li><a href=\"" . URL . "profile.php\"><span class=\"glyphicon glyphicon-user\"></span>  " . $_SESSION['FirstName'] . " " . $_SESSION['LastName'] . "</a></li>";
             	echo "<li class=\"dropdown\">";
             	echo "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">";
             	echo "<span class=\"glyphicon glyphicon-cog\"></span> Settings";
             	echo "<span class=\"caret\"></span></a>";
             	echo "<ul class=\"dropdown-menu\">";
-            	echo "<li><a href=\"profile.php\">Profile</a></li>";
-            	echo "<li><a href=\"#\">Page 2</a></li>";
-            	echo "<li><a href=\"#\">Page 3</a></li>";
             	echo "<li id=\"logout\"><a href=\"logout.php\">Logout</a></li>";
             	echo "</ul>";
             	echo "</li>";
@@ -78,7 +75,7 @@
 </nav>
 
 <?php 
-	if(!empty($invalid_email_password)){
+	if(!empty($_SESSION['invalid_email_password'])){
 		
     	echo "<div class=\"col-md-3 col-md-offset-7\">";
     	echo "<p id=\"invalid-username-pw\">Invalid email or password.</p>";

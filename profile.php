@@ -1,5 +1,7 @@
 <?php
 if(!isset($_SESSION)){session_start();}
+include('config.php');
+include('db/database.class.php'); //DB connection and disconnection
 ?>
 
 <!DOCTYPE html>
@@ -24,36 +26,93 @@ if(!isset($_SESSION)){session_start();}
     <![endif]-->
   </head>
   <body>
-    <?php 
-      require_once('db/database.class.php'); //DB connection and disconnection
-      require_once('errors.class.php');
-      
-      if(!empty($_POST['submit'])) //If user logs in through index, include validation file
-        if($_POST['submit'] == 'nav')
-          require_once('db/login-validation.php');
-        
-      include_once("includes/header-nav.php"); //top navbar
-      require_once('profile-update.php');
-    ?>
+    <?php include_once("includes/header-nav.php"); ?>
 
     <div id="wrapper">
       <div id="sidebar-wrapper">
-        <?php
-          require_once("includes/left-nav.php");
-        ?>
+        <?php include("includes/left-nav.php"); ?>
       </div>
       <div id="page-content-wrapper">
         <div class="page-content">
     <div class="container-fluid">
     	<div class="row">
-    		<div class="col-md-6">
+    		<div class="col-md-5 col-md-offset-3">
     			<?php
             if(isset($_SESSION['Email'])){
-              echo "<h3>" . $_SESSION['FirstName'] . " " . $_SESSION['LastName'] . "'s Profile</h3><hr>";
+              echo "<h3><bold>" . $_SESSION['FirstName'] . " " . $_SESSION['LastName'] . "'s Profile</bold></h3><hr>";
+              if(isset($_SESSION['edit_success']) == "true"){
+                echo "<h3 id=\"h3-registration\" class=\"rounded-registration\">Update successful!</h3><br><br>";
+              }
+
+              if(isset($_GET['edit'])){
+                if($_GET['edit'] == "edit"){
+                  //echo "<form role=\"form\" action=\"" . $_SERVER['PHP_SELF'] . "?edit=edit" . "\" method=\"POST\">";
+                  echo "<form role=\"form\" action=\"profile-update.php\" method=\"POST\">";
+                  echo "<div class=\"form-group ";
+                  if(isset($_SESSION['invalid']['email']) || isset($_SESSION['invalid']['mismatch']) || isset($_SESSION['invalid']['exists'])){
+                    echo "has-error has-feedback\"";
+                  }
+                  echo ">";
+                  echo "<label for=\"email\">Enter Your New Email: </label>";
+                  echo "<input class=\"form-control\" type=\"text\" id=\"email\" name=\"edit_email1\">";
+
+                  if(isset($_SESSION['invalid']['email']) || isset($_SESSION['invalid']['mismatch']) || isset($_SESSION['invalid']['exists'])){
+                    echo "<span class=\"glyphicon glyphicon-remove form-control-feedback\"></span>";
+                  }
+                  echo "</div>";
+
+
+
+                  echo "<div class=\"form-group ";
+                  if (isset($_SESSION['invalid']['email']) || isset($_SESSION['invalid']['mismatch']) || isset($_SESSION['invalid']['exists'])){
+                    echo "has-error has-feedback\"";
+                  }
+                  echo ">";
+                  echo "<label for=\"email2\">Retype Your New Email: </label>";
+                  echo "<input class=\"form-control\" type=\"text\" id=\"email2\" name=\"edit_email2\">";
+
+                  if (isset($_SESSION['invalid']['mismatch'])){
+                    echo "<span class=\"glyphicon glyphicon-remove form-control-feedback\"></span>";
+                    echo "<p class=\"help-block\">Emails do not match.</p>";
+                  }
+                  else if (isset($_SESSION['invalid']['email'])){
+                    echo "<span class=\"glyphicon glyphicon-remove form-control-feedback\"></span>";
+                    echo "<p class=\"help-block\">Email is invalid.</p>";
+                  }
+                  else if(isset($_SESSION['invalid']['exists'])){
+                    echo "<span class=\"glyphicon glyphicon-remove form-control-feedback\"></span>";
+                    echo "<p class=\"help-block\">That email already exists.</p>";
+                  }
+
+                  echo "</div>";
+
+                  echo "<button id=\"save-btn\" type=\"submit\" name=\"save\" value=\"save\" class=\"btn btn-default\">";
+                  echo "Save Changes</button>";
+                  echo "<button id=\"cancel-btn\" type=\"submit\" name=\"cancel\" value=\"cancel\" class=\"btn btn-default\">";
+                  echo "Cancel</button>";
+                  echo "</form>";
+                }
+              }
+              else{
+                echo "<p>Email: " . $_SESSION['Email'] . "</p><br><br>";
+                echo "<form role=\"form\" action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
+                echo "<div class=\"form-group\">";
+                echo "<button name=\"edit\" type=\"submit\" class=\"btn btn-default btn-lg\" value=\"edit\">";
+                echo "Edit Profile";
+                echo "</button>";
+                echo "</div>";
+                echo "</form>";    
+              }
             }
 
           ?>
+
+
     		</div>
+        <div class="col-md-3">
+          <!-- User Image and Misc Information -->
+
+        </div>
     	</div>
     </div> <!-- container -->
     </div>
@@ -65,5 +124,6 @@ if(!isset($_SESSION)){session_start();}
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../dist/js/bootstrap.min.js"></script>
+    <?php  $_SESSION['invalid']=array(); $_SESSION['edit_success'] = null ?>
 </body>
 </html>

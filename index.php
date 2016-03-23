@@ -1,5 +1,9 @@
 <?php
 if(!isset($_SESSION)){session_start();}
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+include('db/database.class.php'); //DB connection and disconnection
+include('config.php');
 ?>
 
 <!DOCTYPE html>
@@ -25,14 +29,7 @@ if(!isset($_SESSION)){session_start();}
     <![endif]-->
   </head>
   <body>
-    <?php 
-      require_once('db/database.class.php'); //DB connection and disconnection
-      require_once('errors.class.php');
-      
-      if(!empty($_POST['submit'])) //If user logs in through index, include validation file
-        if($_POST['submit'] == 'nav')
-          require_once('db/login-validation.php');
-
+    <?php
       include_once("includes/header-nav.php"); //top navbar
     ?>
 
@@ -50,7 +47,7 @@ if(!isset($_SESSION)){session_start();}
         <?php
           if(isset($_GET['registered'])){
             if($_GET['registered'] == 'true')
-              echo "<h3 id=\"h3-registration\" class=\"rounded-registration\">Registration successful!</h3><br><br>";
+              echo "<h3 id=\"h3-registration\" class=\"rounded-registration-lg\">Registration successful!</h3><br><br>";
           }
         ?>
         <h3>Welcome to Orochart!</h3>
