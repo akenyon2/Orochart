@@ -3,20 +3,12 @@ class Database{
 	public static $dbhost = "localhost";
 	public static $dbname = "project";
 	public static $dbusername = "root";
-<<<<<<< HEAD
 	public static $dbpassword = "";
-=======
-	public static $dbpassword = "root";
->>>>>>> origin/master
 
 	public static $conn = null;
 
 	public function __construct(){
-<<<<<<< HEAD
 		die('Database constructor is not allowed.');
-=======
-		die('Constructor is not allowed.');
->>>>>>> origin/master
 	}
 
 	public static function connect(){
@@ -35,7 +27,6 @@ class Database{
 		self::$conn = null;
 	}
 
-<<<<<<< HEAD
 	public static function emailExists($email){
 		$sql = self::$conn->prepare("SELECT Email
         FROM user
@@ -101,8 +92,5 @@ class Database{
 
 	
 
-=======
-}
->>>>>>> origin/master
 $page = $_SERVER['PHP_SELF'];
 ?>
