@@ -1,2 +1,0 @@
-user(email, password, firstName, lastName, organization)
-event(title, daysOfWeek, dateStart, dateEnd, timeStart, timeEnd)
