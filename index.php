@@ -1,9 +1,12 @@
 <?php
 if(!isset($_SESSION)){session_start();}
+<<<<<<< HEAD
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 include('db/database.class.php'); //DB connection and disconnection
 include('config.php');
+=======
+>>>>>>> origin/master
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +32,18 @@ include('config.php');
     <![endif]-->
   </head>
   <body>
+<<<<<<< HEAD
     <?php
+=======
+    <?php 
+      require_once('db/database.class.php'); //DB connection and disconnection
+      require_once('errors.class.php');
+      
+      if(!empty($_POST['submit'])) //If user logs in through index, include validation file
+        if($_POST['submit'] == 'nav')
+          require_once('db/login-validation.php');
+
+>>>>>>> origin/master
       include_once("includes/header-nav.php"); //top navbar
     ?>
 
