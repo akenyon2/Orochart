@@ -28,12 +28,6 @@ if(!empty($_POST['submit'])){
 	?>
 
 
-	<div id="wrapper">
-		<div id="sidebar-wrapper">
-			<?php require_once("includes/left-nav.php"); ?>
-		</div>
-		<div id="page-content-wrapper">
-			<div class="page-content">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3">
@@ -112,9 +106,6 @@ if(!empty($_POST['submit'])){
         				</div>
     				</div><!-- row -->
 				</div><!-- container -->
-			</div>
-		</div>
-	</div> <!-- wrapper -->
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../dist/js/bootstrap.min.js"></script>

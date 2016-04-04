@@ -28,35 +28,32 @@ include('db/database.class.php'); //DB connection and disconnection
   <body>
     <?php include_once("includes/header-nav.php"); ?>
 
-    <div id="wrapper">
-      <div id="sidebar-wrapper">
-        <?php include("includes/left-nav.php"); ?>
-      </div>
-      <div id="page-content-wrapper">
-        <div class="page-content">
     <div class="container-fluid">
     	<div class="row">
-    		<div class="col-md-5 col-md-offset-3">
+    		<div class="col-md-6 col-md-offset-3">
     			<?php
+            foreach($_SESSION['invalid'] as $key => $elem){
+              if(!empty($key[$elem]))
+                $err_found = true;
+            }
             if(isset($_SESSION['Email'])){
               echo "<h3><bold>" . $_SESSION['FirstName'] . " " . $_SESSION['LastName'] . "'s Profile</bold></h3><hr>";
-              if(isset($_SESSION['edit_success']) == "true"){
+              if(isset($_SESSION['edit_success']) && $_SESSION['edit_success'] == "true"){
                 echo "<h3 id=\"h3-registration\" class=\"rounded-registration\">Update successful!</h3><br><br>";
               }
 
-              if(isset($_GET['edit'])){
-                if($_GET['edit'] == "edit"){
+              if(isset($_GET['edit']) && $_GET['edit'] == "edit"){
                   //echo "<form role=\"form\" action=\"" . $_SERVER['PHP_SELF'] . "?edit=edit" . "\" method=\"POST\">";
                   echo "<form role=\"form\" action=\"profile-update.php\" method=\"POST\">";
                   echo "<div class=\"form-group ";
-                  if(isset($_SESSION['invalid']['email']) || isset($_SESSION['invalid']['mismatch']) || isset($_SESSION['invalid']['exists'])){
+                  if(isset($err_found)){
                     echo "has-error has-feedback\"";
                   }
                   echo ">";
                   echo "<label for=\"email\">Enter Your New Email: </label>";
                   echo "<input class=\"form-control\" type=\"text\" id=\"email\" name=\"edit_email1\">";
 
-                  if(isset($_SESSION['invalid']['email']) || isset($_SESSION['invalid']['mismatch']) || isset($_SESSION['invalid']['exists'])){
+                  if(isset($err_found)){
                     echo "<span class=\"glyphicon glyphicon-remove form-control-feedback\"></span>";
                   }
                   echo "</div>";
@@ -64,7 +61,7 @@ include('db/database.class.php'); //DB connection and disconnection
 
 
                   echo "<div class=\"form-group ";
-                  if (isset($_SESSION['invalid']['email']) || isset($_SESSION['invalid']['mismatch']) || isset($_SESSION['invalid']['exists'])){
+                  if (isset($err_found)){
                     echo "has-error has-feedback\"";
                   }
                   echo ">";
@@ -91,7 +88,7 @@ include('db/database.class.php'); //DB connection and disconnection
                   echo "<button id=\"cancel-btn\" type=\"submit\" name=\"cancel\" value=\"cancel\" class=\"btn btn-default\">";
                   echo "Cancel</button>";
                   echo "</form>";
-                }
+                
               }
               else{
                 echo "<p>Email: " . $_SESSION['Email'] . "</p><br><br>";
@@ -115,9 +112,6 @@ include('db/database.class.php'); //DB connection and disconnection
         </div>
     	</div>
     </div> <!-- container -->
-    </div>
-    </div>
-  </div> <!-- wrapper -->
 
 
 

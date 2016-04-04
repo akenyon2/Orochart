@@ -2,8 +2,16 @@
 if(!isset($_SESSION)){session_start();}
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-include('db/database.class.php'); //DB connection and disconnection
+include('calendar.class.php');
+//put events class here
+
 include('config.php');
+
+if(!empty($_POST['submit'])){
+	if($_POST['submit'] == 'nav')
+		require('db/login-validation.php');
+}
+$calendar = new Calendar();
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +26,9 @@ include('config.php');
     <!-- Bootstrap -->
     <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/default.css" rel="stylesheet">
+    <link href="css/calendar.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,24 +40,29 @@ include('config.php');
     <?php
       include_once("includes/header-nav.php"); //top navbar
     ?>
+    	<!--<div id="wrapper">-->
+	    	<!--<div id="sidebar-wrapper">-->
+	    	
+		    	<!--<div id="page-content-wrapper">-->
+			    	<!--<div class="page-content">-->
+			    	
+				    	<div class="container-fluid">
+					    	<div class="row">
+					    	<div id="calendar-widget" class="col-lg-3 col-md-3 col-sm-3">
+					    	<a id="back-to-current" class="btn btn-info" href="<?php echo URL . 'calendar.php?month='.date("m",time()).'&year='.date("Y", time()); ?>" role="button">Back to Current Day</a>
+					    	<?php echo $calendar->show(); ?>
+					    	</div>
+					    	<div class="col-lg-8 col-md-8 col-sm-8">
+					    		<?php
+					    			echo $calendar->showWeek();
+					    		?>
+					    	</div>
+					    	</div><!-- row -->
+				    	</div><!-- container-fluid -->
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-        <?php
-          if(isset($_GET['registered'])){
-            if($_GET['registered'] == 'true')
-              echo "<h3 id=\"h3-registration\" class=\"rounded-registration-lg\">Registration successful!</h3><br><br>";
-          }
-        ?>
-        <h3>Welcome to Orochart!</h3>
-        <hr>
-        <p><em><b>What is Orochart?</b></em></p>
-        <p>It is an application that attempts to revolutionize your scheduling experience by providing sleek and quick customizability.</p>
-        </div>
-      </div>
-      </div> <!-- container -->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../dist/js/bootstrap.min.js"></script>
-  </body>
+			    	<!--</div>page-content -->
+		    	<!--</div>page-content-wrapper -->
+	    	<!--</div>sidebar-wrapper -->
+    	<!--</div>wrapper -->
+    </body>
 </html>
