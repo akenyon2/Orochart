@@ -13,6 +13,114 @@ private $currentDate = null;
 private $daysInMonth = 0;
 private $naviHref = null;
 
+public function dayView(){
+    $year = null;
+    $month = null;
+    $day = null;
+    if($year==null && isset($_GET['year'])){
+		$year = $_GET['year'];
+	}
+	else if ($year == null){
+		$year = date("Y", time());
+    }
+    
+    if($day==null && isset($_GET['day'])){
+		$year = $_GET['day'];
+	}
+	else if ($day == null){
+		$day = date("d", time());
+	}
+
+	if(null == $month && isset($_GET['month'])){
+		$month = $_GET['month'];
+	}
+	else if(null == $month){
+		$month = date("m", time());
+	}
+
+	$this->currentYear = $year;
+	$this->currentMonth = $month;
+    $this->currentDay = $day;
+	$this->daysInMonth = $this->_daysInMonth($month, $year);
+    echo $day;
+	$content='<div class="box-content">'. '<h4>Day View for ' . $month . '/' . $_GET['day'] . '</h4>'.
+                    '</br>'.
+
+          '<form action="calendar.php" method="get">
+                    Subject:</br>
+                    <input type="text" name="subject"</br></br>
+                    Location:</br>
+                    <input type="text" name="location"><br><br>
+                    Start Time: ' . $month . '/' . $_GET['day'] . '/' . $_GET['year'] . '</option>
+                    <select>';
+                    $time = '0000';
+                        for ($i = 0; $i < 96; $i++){
+                            $content .= '<option value="startClock">'; 
+                            //echo substr($time, 1, 1); echo '</br>';
+                            if (strlen ($time) == 3)
+                                $time = '0' . $time;
+                            else if (strlen ($time) == 2)
+                                $time = '00' . $time;
+                            else if (strlen ($time) == 1)
+                                $time = '000' . $time;
+                            if(substr($time, 2, 4) == 60){
+                                $oneSpot = substr($time, 0, 1);
+                                $twoSpot = substr($time, 1, 1) + 1;
+                                $time = $oneSpot;
+                                $time .= $twoSpot;
+                                $time .= "00";
+                            }
+                            if ($time == '01000')
+                                $time = 1000;
+                            $printTime = substr_replace($time, ':', 2, 0);
+                            $content .= $printTime . '</option>';
+                            if ($time == 1945)
+                                $time = 2000;
+                            else
+                                $time += 15;
+                        }
+                    $content .= '</select></br></br>
+                    End Time: ' . $month . '/' . $_GET['day'] . '/' . $_GET['year'] . '</option>
+                    <select>';
+                        $time = '0000';
+                        for ($i = 0; $i < 96; $i++){
+                            $content .= '<option value="startClock">'; 
+                            //echo substr($time, 1, 1); echo '</br>';
+                            if (strlen ($time) == 3)
+                                $time = '0' . $time;
+                            else if (strlen ($time) == 2)
+                                $time = '00' . $time;
+                            else if (strlen ($time) == 1)
+                                $time = '000' . $time;
+                            if(substr($time, 2, 4) == 60){
+                                $oneSpot = substr($time, 0, 1);
+                                $twoSpot = substr($time, 1, 1) + 1;
+                                $time = $oneSpot;
+                                $time .= $twoSpot;
+                                $time .= "00";
+                            }
+                            if ($time == '01000')
+                                $time = 1000;
+                            $printTime = substr_replace($time, ':', 2, 0);
+                            $content .= $printTime . '</option>';
+                            if ($time == 1945)
+                                $time = 2000;
+                            else
+                                $time += 15;
+                        }
+                    $content .= '</select></br>
+                    </select></br>
+                    <input type="submit" name="cal" value="Submit">
+                 </form></br></br></br></br></br></br></br></br></br></br></br>' .
+             '</div>';
+    return $content;
+}
+
+public function scheduleSelect(){
+
+
+}
+
 public function show(){
 	$year = null;
 	$month = null;
